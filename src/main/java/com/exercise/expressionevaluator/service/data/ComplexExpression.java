@@ -13,9 +13,4 @@ public class ComplexExpression  extends ExpressionBase {
     public ComplexExpression() {
         this.expressions = new ArrayList<>();
     }
-
-    @Override
-    public boolean evaluate() {
-        return false;
-    }
 }

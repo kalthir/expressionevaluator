@@ -9,5 +9,4 @@ public abstract class ExpressionBase {
 
     protected LogicalOperatorType followingLogicalOperator;
     protected boolean isInverse;
-    public abstract boolean evaluate();
 }

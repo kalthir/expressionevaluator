@@ -91,10 +91,8 @@ public class StringToExpressionService implements IStringToExpressionService {
 
     private DataType stringToDataType(String value) throws BusinessException {
         value = value.trim();
-        if(value.matches("-?\\d+")) {
-            return DataType.INTEGER;
-        } else if(value.matches("-?\\d+(\\.\\d+)?")) {
-            return DataType.DECIMAL;
+         if(value.matches("-?\\d+(\\.\\d+)?")) {
+            return DataType.NUMBER;
         } else if(value.matches("\\\"[^\\\"]*\\\"")) {
             return DataType.STRING;
         } else if(value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false")) {

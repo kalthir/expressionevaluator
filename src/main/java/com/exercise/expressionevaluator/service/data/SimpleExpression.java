@@ -18,9 +18,4 @@ public class SimpleExpression extends ExpressionBase {
         this.type = type;
         this.value = value;
     }
-
-    @Override
-    public boolean evaluate() {
-        return false;
-    }
 }
