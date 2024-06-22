@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class EvaluationController {
 
-    private IExpressionService expressionService;
+    private final IExpressionService expressionService;
 
     @PostMapping("/expression")
     public Integer createExpression(@RequestBody ExpressionCreateCommand expression) throws BusinessException {

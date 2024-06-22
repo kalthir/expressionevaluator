@@ -1,12 +1,17 @@
 package com.exercise.expressionevaluator.service;
 
+import com.exercise.expressionevaluator.data.IExpressionRepository;
+import com.exercise.expressionevaluator.data.model.Expression;
 import com.exercise.expressionevaluator.util.BusinessException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
+@Service
 public class ExpressionService implements IExpressionService {
 
-private IStringToExpressionService stringToExpressionService;
+private final IStringToExpressionService stringToExpressionService;
+private final IExpressionRepository expressionRepository;
 
     @Override
     public Integer createExpression(String name, String expression) throws BusinessException {
@@ -15,8 +20,9 @@ private IStringToExpressionService stringToExpressionService;
         return saveExpression(name, expression);
     }
 
-    private Integer saveExpression(String name, String expression) {
-        return 0;
+    private Integer saveExpression(String name, String value) {
+        Expression expression = expressionRepository.save(new Expression(name, value));
+        return expression.getId();
     }
 
     private void validateExpression(String expression) throws BusinessException {

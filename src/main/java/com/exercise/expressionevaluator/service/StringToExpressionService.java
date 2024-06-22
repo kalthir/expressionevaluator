@@ -2,12 +2,14 @@ package com.exercise.expressionevaluator.service;
 
 import com.exercise.expressionevaluator.service.data.*;
 import com.exercise.expressionevaluator.util.BusinessException;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Service
 public class StringToExpressionService implements IStringToExpressionService {
 
     private static final String SIMPLE_EXPRESSION_REGEX = "^(?<path>\\w+(?:\\.\\w+)*)\\s*(?<comparisonOperator>==|!=|>|<|<=|>=){1}\\s*(?<value>(?:-?\\d+(\\.\\d+)?)|(?:\\\"[^\\\"]*\\\")|true|false|null){1}\\s*(?<logicalOperator>AND|OR|&&|\\|\\|)?";
