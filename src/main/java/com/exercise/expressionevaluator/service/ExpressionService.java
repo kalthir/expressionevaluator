@@ -24,20 +24,13 @@ private final IExpressionRepository expressionRepository;
     }
 
     @Override
-    public void evaluateExpression(Integer expressionId, String data) throws BusinessException {
-        Gson gson = new Gson();
+    public boolean evaluateExpression(Integer expressionId, String data) throws BusinessException {
         Expression expression = expressionRepository.findById(expressionId).orElseThrow(() -> new BusinessException("Expression not found"));
         ExpressionBase expressionBase = stringToExpressionService.stringToExpression(expression.getExpressionValue());
         JsonParser parser = new JsonParser();
         JsonElement elem   = parser.parse(data);
-        JsonArray dataArray = elem.getAsJsonArray();
-        JsonArray resultArray = new JsonArray();
-        for(JsonElement record : dataArray) {
-            JsonObject recordObject = record.getAsJsonObject();
-            if(expressionEvaluatorService.evaluateExpression(recordObject, expressionBase)) {
-                resultArray.add(recordObject);
-            }
-        }
+        JsonObject recordObject = elem.getAsJsonObject();
+        return expressionEvaluatorService.evaluateExpression(recordObject, expressionBase);
     }
 
     private Integer saveExpression(String name, String value) {

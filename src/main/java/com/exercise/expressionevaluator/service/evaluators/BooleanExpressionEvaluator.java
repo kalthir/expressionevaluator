@@ -12,9 +12,9 @@ public class BooleanExpressionEvaluator extends ExpressionEvaluatorBase {
 
         switch(expression.getOperator()) {
             case EQUALS:
-                return recordValue.equals(expression);
+                return recordValue.equals(expressionValue);
             case NOT_EQUALS:
-                return !recordValue.equals(expression);
+                return !recordValue.equals(expressionValue);
             default:
                 throw new BusinessException("Invalid operator");
         }
