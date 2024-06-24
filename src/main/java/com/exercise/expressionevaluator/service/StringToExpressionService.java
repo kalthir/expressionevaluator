@@ -2,6 +2,7 @@ package com.exercise.expressionevaluator.service;
 
 import com.exercise.expressionevaluator.service.data.*;
 import com.exercise.expressionevaluator.util.BusinessException;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -79,6 +80,10 @@ public class StringToExpressionService implements IStringToExpressionService {
         ComparisonOperatorType operator = stringToComparisonOperatorType(matcher.group("comparisonOperator"));
         DataType dataType = stringToDataType(matcher.group("value"));
         String value = matcher.group("value");
+        String escapedQuotes = "\"";
+        value = StringUtils.stripStart(value, escapedQuotes);
+        value = StringUtils.stripEnd(value, escapedQuotes);
+
 
         SimpleExpression expression = new SimpleExpression(path, operator, dataType, value);
         if(matcher.group("logicalOperator") != null && !matcher.group("logicalOperator").isEmpty()) {

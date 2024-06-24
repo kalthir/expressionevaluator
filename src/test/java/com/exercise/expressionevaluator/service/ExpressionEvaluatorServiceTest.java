@@ -125,8 +125,41 @@ class ExpressionEvaluatorServiceTest {
                 new SimpleExpression("customer.address.zipCode", ComparisonOperatorType.EQUALS, DataType.NUMBER, "1234")
         }).toList());
 
+        ComplexExpression complexExpression2 = new ComplexExpression();
+        complexExpression2.setExpressions(Arrays.stream(new ExpressionBase[]{
+                new SimpleExpression("customer.lastName", ComparisonOperatorType.EQUALS, DataType.STRING, "JOHN", LogicalOperatorType.OR),
+                new SimpleExpression("customer.address.zipCode", ComparisonOperatorType.EQUALS, DataType.NUMBER, "1234")
+        }).toList());
+
+        ComplexExpression complexExpression3 = new ComplexExpression();
+        complexExpression3.setInverse(true);
+        complexExpression3.setExpressions(Arrays.stream(new ExpressionBase[]{
+                new SimpleExpression("customer.lastName", ComparisonOperatorType.EQUALS, DataType.STRING, "JOHN", LogicalOperatorType.OR),
+                new SimpleExpression("customer.address.zipCode", ComparisonOperatorType.EQUALS, DataType.NUMBER, "12345")
+        }).toList());
+
+        ComplexExpression complexExpression4 = new ComplexExpression();
+        ComplexExpression complexExpression4_subexpression1 = new ComplexExpression();
+        complexExpression4_subexpression1.setExpressions(Arrays.stream(new ExpressionBase[]{
+                new SimpleExpression("customer.lastName", ComparisonOperatorType.EQUALS, DataType.STRING, "JOHN", LogicalOperatorType.OR),
+                new SimpleExpression("customer.address.zipCode", ComparisonOperatorType.EQUALS, DataType.NUMBER, "1234")
+        }).toList());
+        ComplexExpression complexExpression4_subexpression2 = new ComplexExpression();
+        complexExpression4_subexpression2.setInverse(true);
+        complexExpression4_subexpression2.setExpressions(Arrays.stream(new ExpressionBase[]{
+                new SimpleExpression("customer.firstName", ComparisonOperatorType.EQUALS, DataType.STRING, "JOHN", LogicalOperatorType.AND),
+                new SimpleExpression("customer.address.zipCode", ComparisonOperatorType.EQUALS, DataType.NUMBER, "1234")
+        }).toList());
+        complexExpression4.setExpressions(Arrays.stream(new ExpressionBase[]{
+                complexExpression4_subexpression1,
+                complexExpression4_subexpression2
+        }).toList());
+
         return Stream.of(
-                Arguments.of(record, complexExpression1)
+                Arguments.of(record, complexExpression1),
+                Arguments.of(record, complexExpression2),
+                Arguments.of(record, complexExpression3),
+                Arguments.of(record, complexExpression4)
 
         );
     }
