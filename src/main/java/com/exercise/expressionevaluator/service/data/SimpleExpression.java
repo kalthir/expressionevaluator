@@ -18,4 +18,9 @@ public class SimpleExpression extends ExpressionBase {
         this.type = type;
         this.value = value;
     }
+
+    public SimpleExpression(String path, ComparisonOperatorType operator, DataType type, String value, LogicalOperatorType followingLogicalOperator) {
+        this(path, operator, type, value);
+        this.followingLogicalOperator = followingLogicalOperator;
+    }
 }

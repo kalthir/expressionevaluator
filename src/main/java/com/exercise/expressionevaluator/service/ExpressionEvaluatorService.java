@@ -41,7 +41,7 @@ public class ExpressionEvaluatorService implements IExpressionEvaluatorService {
                     initializeTempValue = false;
                 }
 
-                if(expression.getFollowingLogicalOperator() == LogicalOperatorType.OR) {
+                if(expression.getFollowingLogicalOperator() == LogicalOperatorType.OR || expression.getFollowingLogicalOperator() == null) {
                      resultsAfterResolvingAnd.add(tempValue);
                      initializeTempValue = true;
                 } else {

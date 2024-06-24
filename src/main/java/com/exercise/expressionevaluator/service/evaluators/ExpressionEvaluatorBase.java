@@ -3,6 +3,7 @@ package com.exercise.expressionevaluator.service.evaluators;
 import com.exercise.expressionevaluator.service.data.DataType;
 import com.exercise.expressionevaluator.service.data.SimpleExpression;
 import com.exercise.expressionevaluator.util.BusinessException;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
@@ -17,18 +18,21 @@ public abstract class ExpressionEvaluatorBase {
                 return new NumberExpressionEvaluator();
             case DataType.BOOLEAN:
                 return new BooleanExpressionEvaluator();
+            case DataType.NULL:
+                return new NullExpressionEvaluator();
             default:
                 throw new BusinessException("Invalid data type");
         }
     }
 
-    protected JsonPrimitive getRecordValue(JsonObject record, SimpleExpression expression) {
+    protected JsonElement getRecordValue(JsonObject record, SimpleExpression expression) {
         String[] path = expression.getPath().split("\\.");
         JsonObject currentRecord = record;
         for (int i = 0; i < path.length - 1; i++) {
             currentRecord = currentRecord.getAsJsonObject(path[i]);
         }
-        return currentRecord.getAsJsonPrimitive(path[path.length - 1]);
+
+        return currentRecord.get(path[path.length - 1]);
     }
 
 }
