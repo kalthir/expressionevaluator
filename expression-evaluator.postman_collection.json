@@ -1,0 +1,70 @@
+{
+	"info": {
+		"_postman_id": "017f853f-76b9-46e7-b473-0938c7133440",
+		"name": "expression-evaluator",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36487555",
+		"_collection_link": "https://www.postman.com/spacecraft-explorer-13451116/workspace/public/collection/36487555-017f853f-76b9-46e7-b473-0938c7133440?action=share&source=collection_link&creator=36487555"
+	},
+	"item": [
+		{
+			"name": "Create Expression",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Example\",\r\n    \"expression\":\"(customer.firstName == \\\"JOHN\\\" && customer.salary < 100) OR (customer.address != null && customer.address.city == \\\"Washington\\\")\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/expression",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"expression"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Evaluate Expression",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"expressionId\": 1,\r\n    \"data\": {\"customer\":{\"firstName\":\"JOHN\",\"lastName\":\"DOE\",\"address\":{\"city\":\"Chicago\",\"zipCode\":1234,\"street\":\"56th\",\"houseNumber\":2345},\"salary\":99,\"type\":\"BUSINESS\"}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/evaluate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"evaluate"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

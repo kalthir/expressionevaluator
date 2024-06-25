@@ -23,6 +23,6 @@ public class EvaluationController {
 
     @GetMapping("/evaluate")
     public boolean evaluateExpression(@RequestBody ExpressionEvaluationRequest request) throws BusinessException {
-        return this.expressionService.evaluateExpression(request.getExpressionId(), request.getData());
+        return this.expressionService.evaluateExpression(request.getExpressionId(), request.getData().toString());
     }
 }
