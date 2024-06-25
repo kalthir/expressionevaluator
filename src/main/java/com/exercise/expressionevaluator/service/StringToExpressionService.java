@@ -35,7 +35,7 @@ public class StringToExpressionService implements IStringToExpressionService {
                 int closingParenthesisIndex = findClosingParenthesisIndex(expression.substring(i));
                 ExpressionBase parenthesisExpression = stringToExpression(subExpression.substring(subExpression.indexOf("(") + 1, closingParenthesisIndex));
                 if(subExpression.startsWith(("!"))) {
-                    parenthesisExpression.setInverse(true);
+                    parenthesisExpression.setInverse(!parenthesisExpression.isInverse());
                 }
 
                 i = i + closingParenthesisIndex + 1;

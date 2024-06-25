@@ -40,7 +40,13 @@ public class ExpressionCreationAndEvaluationTest {
 
     public static Stream<Arguments> provideParamsForCreateAndEvaluateExpression() {
         return Stream.of(
-                Arguments.of("customer.firstName == \"JOHN\"", exampleRecordString, true)
+                Arguments.of("customer.firstName == \"JOHN\"", exampleRecordString, true),
+                Arguments.of("customer.firstName == \"MARK\"", exampleRecordString, false),
+                Arguments.of("customer.firstName == \"JOHN\" && customer.lastName != \"DOE\"", exampleRecordString, true),
+                Arguments.of("customer.firstName == \"JOHN\" || customer.lastName != \"ODE\"", exampleRecordString, true),
+                Arguments.of("(customer.firstName == \"JOHN\" || customer.lastName != \"ODE\") && (customer.address.city == \"Chicago\" && customer.address.zipCode >= 1000)", exampleRecordString, true),
+                Arguments.of("(customer.firstName == \"JOHN\" || customer.lastName != \"ODE\") && !(customer.address.city == \"Chicago\" && customer.address.zipCode >= 1000)", exampleRecordString, false),
+                Arguments.of("(customer.firstName == \"JOHN\" || customer.lastName != \"ODE\") && !(!(customer.address.city == \"Chicago\" && customer.address.zipCode >= 1000))", exampleRecordString, true)
         );
     }
 }
